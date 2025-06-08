@@ -1,0 +1,38 @@
+name: 🚀 Deploy website on push
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚚 Get latest code from gh-pages
+      uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+        
+    - name: 📂 Sync files (main)
+      if: github.ref == 'refs/heads/main'
+      uses: SamKirkland/FTP-Deploy-Action@4.3.4
+      with:
+        server: ${{ secrets.ftp_main_host }}
+        username: ${{ secrets.ftp_main_username }}
+        password: ${{ secrets.ftp_main_password }}
+        local-dir: ./dist/
+        server-dir: /htdocs/
+        
+    - name: 📂 Sync files (master)
+      if: github.ref == 'refs/heads/master'
+      uses: SamKirkland/FTP-Deploy-Action@4.3.4
+      with:
+        server: ${{ secrets.ftp_master_host }}
+        username: ${{ secrets.ftp_master_username }}
+        password: ${{ secrets.ftp_master_password }}
+        local-dir: ./dist/
+        server-dir: /htdocs/
