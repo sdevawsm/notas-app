@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run build:github && npm run build:server",
+    "build:github": "tsc -b && vite build --base=/notas-app/ --outDir=dist",
+    "build:server": "tsc -b && vite build --base=/ --outDir=dist-server",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:github",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
