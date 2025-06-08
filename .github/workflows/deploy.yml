@@ -22,7 +22,7 @@ jobs:
         server: ${{ secrets.ftp_main_host }}
         username: ${{ secrets.ftp_main_username }}
         password: ${{ secrets.ftp_main_password }}
-        local-dir: dist/
+        local-dir: dist-server/
         server-dir: /htdocs/
         
     - name: 📂 Sync files (master)
@@ -32,5 +32,5 @@ jobs:
         server: ${{ secrets.ftp_master_host }}
         username: ${{ secrets.ftp_master_username }}
         password: ${{ secrets.ftp_master_password }}
-        local-dir: dist/
+        local-dir: dist-server/
         server-dir: /htdocs/
