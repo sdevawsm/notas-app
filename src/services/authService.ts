@@ -13,8 +13,8 @@ interface AuthResponse {
 }
 
 class AuthService {
-  //private readonly API_BASE_URL = 'http://localhost:8080'; // Ajuste conforme necessário
-   private readonly API_BASE_URL = 'https://silvadevbrmaster.rf.gd';
+  // Use URL relativa quando usar proxy do Vite
+  private readonly API_BASE_URL = '/api'; // Mudança aqui
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'auth_user';
 
@@ -35,7 +35,7 @@ class AuthService {
     };
 
     try {
-      const response = await fetch(`${this.API_BASE_URL}/api/auth/login`, requestOptions);
+      const response = await fetch(`${this.API_BASE_URL}/auth/login`, requestOptions);
       
       if (!response.ok) {
         throw new Error(`Erro na autenticação: ${response.status}`);
@@ -43,7 +43,6 @@ class AuthService {
 
       const result: AuthResponse = await response.json();
       
-      // Armazena o token e dados do usuário no localStorage
       this.setToken(result.token);
       if (result.user) {
         this.setUser(result.user);
